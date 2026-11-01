@@ -103,7 +103,7 @@ def calcula_distancia(p1: tuple[float, float], p2: tuple[float, float]) -> float
     Devuelve:
     float: distancia euclídea entre los dos puntos
     """
-    distancia = ((p2[0]-p1[0])**2+(p2[1]-p1[1])**2)^1/2
+    distancia = ((p2[0]-p1[0])**2+(p2[1]-p1[1])**2)**(1/2)
     return distancia
 
 def busca_estacion_mas_cercana(estaciones:list[EstacionSevici], punto:tuple[float, float]) -> EstacionSevici | None:
@@ -117,8 +117,14 @@ def busca_estacion_mas_cercana(estaciones:list[EstacionSevici], punto:tuple[floa
     Devuelve:
     EstacionSevici más cercana con al menos una bicicleta disponible, o None si no hay ninguna.
     """ 
-    # TODO: Ejercicio 5
-    return None
+
+    menor_distancia= None
+    for estacion in estaciones:
+        distancia=calcula_distancia(punto, (estacion.latitud, estacion.longitud))
+        if menor_distancia == None or distancia <= menor_distancia and estacion.bicicletas_disponibles > 0:
+            menor_distancia = distancia
+            estacion_final = estacion
+    return estacion_final
 
 def calcula_ruta(estaciones:list[EstacionSevici], origen:tuple[float, float], destino:tuple[float, float]) -> tuple[EstacionSevici | None, EstacionSevici | None]   :
     """
@@ -132,6 +138,6 @@ def calcula_ruta(estaciones:list[EstacionSevici], origen:tuple[float, float], de
     Devuelve:
     tupla con (estacion_origen, estacion_destino)
     """
-    # TODO: Ejercicio 5
-    pass
+    distancia = calcula_distancia(origen, destino)
+    return busca_estacion_mas_cercana(estaciones, distancia)
 
