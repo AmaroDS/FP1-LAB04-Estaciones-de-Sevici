@@ -138,6 +138,5 @@ def calcula_ruta(estaciones:list[EstacionSevici], origen:tuple[float, float], de
     Devuelve:
     tupla con (estacion_origen, estacion_destino)
     """
-    distancia = calcula_distancia(origen, destino)
-    return busca_estacion_mas_cercana(estaciones, distancia)
+    return busca_estacion_mas_cercana(estaciones, (origen, destino))
 
